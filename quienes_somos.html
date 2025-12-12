@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Quiénes Somos - H&amp;C CONSTRUCTORA</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#5A3A2E",
+              secondary: "#C8C8C8",
+              "brand-brown": "#5A3A2E",
+              "brand-silver": "#C8C8C8",
+
+              // Neutros (Light/Dark)
+              "bg-light": "#FFFFFF",
+              "bg-soft": "#F8F8F8",
+              "bg-dark": "#111418",       // (similar al que estás usando)
+              "card-dark": "#1A1F1A",     // tono verdoso oscuro elegante
+              "card-dark-2": "#252525",   // para cards internas
+              "border-light": "#E5E5E5",
+            },
+            fontFamily: {
+              display: ["Manrope", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "1rem",
+              lg: "2rem",
+              xl: "3rem",
+              full: "9999px",
+            },
+          },
+        },
+      }
+    </script>
+
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(12px);
+      }
+
+      html.light header {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-bottom: 1px solid rgba(229, 229, 229, 0.9);
+        box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05);
+      }
+
+      html.dark header {
+        background-color: rgba(17, 20, 24, 0.92);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.7);
+      }
+    </style>
+
+    <!-- Script tema (persistente) -->
+    <script>
+      (function () {
+        try {
+          const stored = localStorage.getItem("theme");
+          const prefersDark =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const initial = stored || (prefersDark ? "dark" : "light");
+          const html = document.documentElement;
+          html.classList.remove("light", "dark");
+          html.classList.add(initial);
+        } catch (e) {
+          document.documentElement.classList.add("light");
+        }
+      })();
+
+      function toggleTheme() {
+        const html = document.documentElement;
+        const isDark = html.classList.contains("dark");
+        const next = isDark ? "light" : "dark";
+        html.classList.remove("light", "dark");
+        html.classList.add(next);
+        try {
+          localStorage.setItem("theme", next);
+        } catch (e) {}
+      }
+    </script>
+  </head>
+
+  <body
+    class="font-display antialiased selection:bg-brand-brown selection:text-white
+           bg-bg-light text-slate-800
+           dark:bg-bg-dark dark:text-brand-silver transition-colors duration-300"
+  >
+    <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+      <div class="layout-container flex w-full flex-col">
+        <!-- HEADER -->
+        <header class="flex items-center justify-between whitespace-nowrap px-4 py-4 lg:px-40">
+          <div class="flex items-center gap-4">
+            <div class="size-8 text-primary dark:text-white">
+              <!-- Icono original -->
+              <svg
+                class="w-full h-full"
+                fill="none"
+                viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+            <h2 class="text-lg font-bold leading-tight tracking-[-0.015em] text-primary dark:text-white">
+              H&amp;C CONSTRUCTORA
+            </h2>
+          </div>
+
+          <div class="hidden lg:flex flex-1 justify-end gap-8 items-center">
+            <div class="flex items-center gap-9">
+              <a
+                class="text-sm font-medium leading-normal text-slate-600 hover:text-primary transition-colors
+                       dark:text-brand-silver/80 dark:hover:text-white"
+                href="index.html"
+                >Inicio</a
+              >
+              <a class="text-sm font-bold leading-normal text-primary dark:text-white" href="quienes_somos.html"
+                >Nosotros</a
+              >
+              <a
+                class="text-sm font-medium leading-normal text-slate-600 hover:text-primary transition-colors
+                       dark:text-brand-silver/80 dark:hover:text-white"
+                href="servicios.html"
+                >Servicios</a
+              >
+              <a
+                class="text-sm font-medium leading-normal text-slate-600 hover:text-primary transition-colors
+                       dark:text-brand-silver/80 dark:hover:text-white"
+                href="proyectos.html"
+                >Proyectos</a
+              >
+              <a
+                class="text-sm font-medium leading-normal text-slate-600 hover:text-primary transition-colors
+                       dark:text-brand-silver/80 dark:hover:text-white"
+                href="contacto.html"
+                >Contacto</a
+              >
+            </div>
+
+            <!-- Toggle modo -->
+            <button
+              type="button"
+              onclick="toggleTheme()"
+              class="flex items-center justify-center rounded-full h-10 w-10 border border-border-light bg-white/90 text-primary hover:bg-primary hover:text-white transition-all shadow-sm
+                     dark:bg-bg-dark dark:border-white/15 dark:text-brand-silver dark:hover:bg-brand-silver dark:hover:text-bg-dark"
+              aria-label="Cambiar modo de color"
+            >
+              <span class="material-symbols-outlined text-base">dark_mode</span>
+            </button>
+
+            <button
+              class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6
+                     bg-brand-brown text-white text-sm font-bold leading-normal tracking-[0.015em]
+                     hover:bg-[#6b4538] transition-colors shadow-sm border border-brand-brown"
+            >
+              <span class="truncate">Cotización</span>
+            </button>
+          </div>
+
+          <div class="lg:hidden flex items-center gap-2">
+            <button
+              type="button"
+              onclick="toggleTheme()"
+              class="flex items-center justify-center rounded-full h-10 w-10 border border-border-light bg-white/90 text-primary hover:bg-primary hover:text-white transition-all shadow-sm
+                     dark:bg-bg-dark dark:border-white/15 dark:text-brand-silver dark:hover:bg-brand-silver dark:hover:text-bg-dark"
+              aria-label="Cambiar modo de color"
+            >
+              <span class="material-symbols-outlined text-base">dark_mode</span>
+            </button>
+
+            <div class="text-primary dark:text-white">
+              <span class="material-symbols-outlined">menu</span>
+            </div>
+          </div>
+        </header>
+      </div>
+
+      <!-- CONTENIDO -->
+      <div class="flex flex-1 justify-center py-8 px-4 lg:px-40">
+        <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+          <!-- HERO -->
+          <div class="@container mb-12">
+            <div
+              class="flex flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-start justify-end p-8 min-h-[300px] relative overflow-hidden shadow-lg
+                     border border-border-light dark:border-white/10"
+              data-alt="Modern construction site with cranes at sunset"
+              style='background-image:
+                linear-gradient(rgba(255,255,255,0.20) 0%, rgba(90,58,46,0.90) 100%),
+                url("https://lh3.googleusercontent.com/aida-public/AB6AXuDqO6UBZCoylkhYDT4POy8o1StENN25Tk_OlreYWUgDSY0I_E-x-f6esOuUpjEtMeNSmWZ4bgKPHMPlFyzooeuO1_TOlBmMIhxeJxD2xn4RPI3nw65ipH0X0RIAr9i9NLWZaqgyH5LosQ3S6aBjiA49Fff8gIZy37XMoLYQb_9-0iVJhpx1RMrjxMaXZAbLR1Dp4KEkgzhDyPPpHQyT4_CARSaOutXoqIbwaaV0xfjKCyBJbPTXK0xmAuWIoP_oOE1rehHdL7IKGFty");'
+            >
+              <!-- Overlay extra oscuro en dark -->
+              <div
+                class="absolute inset-0 bg-gradient-to-b from-white/10 to-white/30
+                       dark:from-[rgba(19,24,17,0.70)] dark:to-[rgba(19,24,17,0.92)]"
+              ></div>
+
+              <div class="flex flex-col gap-2 relative z-10 max-w-[700px]">
+                <h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] lg:text-5xl">
+                  Quiénes Somos
+                </h1>
+                <p class="text-brand-silver text-lg font-medium leading-relaxed">
+                  H&amp;C Constructora es una empresa dedicada a edificar sueños con solidez, integridad y
+                  visión de futuro, brindando servicios profesionales de alta calidad.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- MISIÓN / VISIÓN -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+            <div
+              class="flex flex-col gap-4 rounded-xl p-8 shadow-md relative overflow-hidden group transition-all duration-300
+                     bg-white border border-border-light hover:border-brand-brown/40
+                     dark:bg-card-dark dark:border-white/10 dark:hover:border-brand-brown/30"
+            >
+              <div class="absolute -right-10 -top-10 w-40 h-40 bg-brand-brown opacity-10 rounded-full blur-2xl"></div>
+              <div class="flex items-center gap-4 z-10">
+                <div class="flex items-center justify-center size-12 rounded-full bg-brand-brown text-white shadow-lg">
+                  <span class="material-symbols-outlined text-[28px]">flag</span>
+                </div>
+                <h2 class="text-slate-900 dark:text-white text-2xl font-bold">Nuestra Misión</h2>
+              </div>
+              <p class="text-slate-600 dark:text-brand-silver text-base leading-relaxed z-10">
+                Atender las necesidades de nuestros clientes en Ingeniería y Construcción, entregando proyectos con
+                altos estándares de calidad, seguridad y profesionalismo, mediante soluciones eficientes e innovadoras.
+              </p>
+            </div>
+
+            <div
+              class="flex flex-col gap-4 rounded-xl p-8 shadow-md relative overflow-hidden group transition-all duration-300
+                     bg-white border border-border-light hover:border-brand-brown/40
+                     dark:bg-card-dark dark:border-white/10 dark:hover:border-brand-brown/30"
+            >
+              <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-brand-silver opacity-10 rounded-full blur-2xl"></div>
+              <div class="flex items-center gap-4 z-10">
+                <div class="flex items-center justify-center size-12 rounded-full bg-brand-brown text-white shadow-lg">
+                  <span class="material-symbols-outlined text-[28px]">visibility</span>
+                </div>
+                <h2 class="text-slate-900 dark:text-white text-2xl font-bold">Nuestra Visión</h2>
+              </div>
+              <p class="text-slate-600 dark:text-brand-silver text-base leading-relaxed z-10">
+                Consolidarnos como empresa referente del sector construcción, reconocida por excelencia técnica,
+                cumplimiento riguroso y adaptación tecnológica, aportando al desarrollo sostenible con obras perdurables.
+              </p>
+            </div>
+          </div>
+
+          <!-- VALORES -->
+          <div class="mb-16">
+            <div class="flex flex-col gap-4 mb-8 text-center md:text-left">
+              <h2 class="text-slate-900 dark:text-white text-3xl font-bold">Nuestros Valores</h2>
+              <p class="text-slate-600 dark:text-brand-silver max-w-[700px]">
+                Los pilares fundamentales que sostienen nuestra cultura corporativa y guían cada decisión.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- card valor -->
+              <div
+                class="flex flex-col gap-3 rounded-lg p-6 transition-all shadow-sm hover:shadow-md
+                       bg-white border border-border-light hover:border-brand-brown/50
+                       dark:bg-card-dark-2 dark:border-white/10 dark:hover:border-brand-brown/40"
+              >
+                <div class="size-10 rounded-full bg-brand-brown/15 flex items-center justify-center mb-2">
+                  <span class="material-symbols-outlined text-brand-brown dark:text-brand-silver">verified_user</span>
+                </div>
+                <h3 class="text-slate-900 dark:text-white text-lg font-bold">Responsabilidad</h3>
+                <p class="text-slate-600 dark:text-brand-silver text-sm leading-normal">
+                  Compromiso total con nuestros clientes, cumpliendo plazos y especificaciones con seriedad.
+                </p>
+              </div>
+
+              <div
+                class="flex flex-col gap-3 rounded-lg p-6 transition-all shadow-sm hover:shadow-md
+                       bg-white border border-border-light hover:border-brand-brown/50
+                       dark:bg-card-dark-2 dark:border-white/10 dark:hover:border-brand-brown/40"
+              >
+                <div class="size-10 rounded-full bg-brand-brown/15 flex items-center justify-center mb-2">
+                  <span class="material-symbols-outlined text-brand-brown dark:text-brand-silver">workspace_premium</span>
+                </div>
+                <h3 class="text-slate-900 dark:text-white text-lg font-bold">Calidad</h3>
+                <p class="text-slate-600 dark:text-brand-silver text-sm leading-normal">
+                  Excelencia en procesos, materiales y acabados, con mano de obra calificada.
+                </p>
+              </div>
+
+              <div
+                class="flex flex-col gap-3 rounded-lg p-6 transition-all shadow-sm hover:shadow-md
+                       bg-white border border-border-light hover:border-brand-brown/50
+                       dark:bg-card-dark-2 dark:border-white/10 dark:hover:border-brand-brown/40"
+              >
+                <div class="size-10 rounded-full bg-brand-brown/15 flex items-center justify-center mb-2">
+                  <span class="material-symbols-outlined text-brand-brown dark:text-brand-silver">handshake</span>
+                </div>
+                <h3 class="text-slate-900 dark:text-white text-lg font-bold">Honestidad</h3>
+                <p class="text-slate-600 dark:text-brand-silver text-sm leading-normal">
+                  Transparencia e integridad en todas nuestras relaciones comerciales y laborales.
+                </p>
+              </div>
+
+              <div
+                class="flex flex-col gap-3 rounded-lg p-6 transition-all shadow-sm hover:shadow-md
+                       bg-white border border-border-light hover:border-brand-brown/50
+                       dark:bg-card-dark-2 dark:border-white/10 dark:hover:border-brand-brown/40"
+              >
+                <div class="size-10 rounded-full bg-brand-brown/15 flex items-center justify-center mb-2">
+                  <span class="material-symbols-outlined text-brand-brown dark:text-brand-silver">groups</span>
+                </div>
+                <h3 class="text-slate-900 dark:text-white text-lg font-bold">Trabajo en Equipo</h3>
+                <p class="text-slate-600 dark:text-brand-silver text-sm leading-normal">
+                  Colaboración y respeto mutuo para lograr objetivos comunes con eficiencia.
+                </p>
+              </div>
+
+              <div
+                class="flex flex-col gap-3 rounded-lg p-6 transition-all shadow-sm hover:shadow-md
+                       bg-white border border-border-light hover:border-brand-brown/50
+                       dark:bg-card-dark-2 dark:border-white/10 dark:hover:border-brand-brown/40"
+              >
+                <div class="size-10 rounded-full bg-brand-brown/15 flex items-center justify-center mb-2">
+                  <span class="material-symbols-outlined text-brand-brown dark:text-brand-silver">engineering</span>
+                </div>
+                <h3 class="text-slate-900 dark:text-white text-lg font-bold">Seguridad</h3>
+                <p class="text-slate-600 dark:text-brand-silver text-sm leading-normal">
+                  Priorizamos la seguridad y salud ocupacional como un valor intransable.
+                </p>
+              </div>
+
+              <div
+                class="flex flex-col gap-3 rounded-lg p-6 transition-all shadow-sm hover:shadow-md
+                       bg-white border border-border-light hover:border-brand-brown/50
+                       dark:bg-card-dark-2 dark:border-white/10 dark:hover:border-brand-brown/40"
+              >
+                <div class="size-10 rounded-full bg-brand-brown/15 flex items-center justify-center mb-2">
+                  <span class="material-symbols-outlined text-brand-brown dark:text-brand-silver">lightbulb</span>
+                </div>
+                <h3 class="text-slate-900 dark:text-white text-lg font-bold">Innovación</h3>
+                <p class="text-slate-600 dark:text-brand-silver text-sm leading-normal">
+                  Incorporamos tecnologías y métodos modernos para mejorar continuamente nuestros servicios.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- RESTO DEL CONTENIDO (lo dejamos igual, solo con ajustes de colores) -->
+
+          <div class="mb-16">
+<div class="relative rounded-2xl bg-surface-alt p-8 lg:p-12 overflow-hidden border border-white/10 shadow-lg">
+<div class="absolute top-0 right-0 w-64 h-64 bg-brand-brown opacity-10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
+<div class="flex flex-col lg:flex-row gap-12 items-center relative z-10">
+<div class="flex-1 flex flex-col gap-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-brown text-white text-sm font-bold w-fit">
+<span class="material-symbols-outlined text-sm">apartment</span>
+<span>Actualidad</span>
+</div>
+<h2 class="text-3xl lg:text-4xl font-bold text-white">La Empresa Hoy</h2>
+<p class="text-brand-silver text-lg leading-relaxed">
+                                En H&amp;C Constructora nos consolidamos como un referente de profesionalismo y confianza. Hoy en día, nuestra empresa se destaca por:
+                            </p>
+<ul class="flex flex-col gap-4 mt-2">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-brand-brown mt-1">check_circle</span>
+<span class="text-brand-silver font-medium">Acreditaciones vigentes en los principales organismos públicos.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-brand-brown mt-1">check_circle</span>
+<span class="text-brand-silver font-medium">Calidad y profesionalismo en cada etapa del proyecto.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-brand-brown mt-1">check_circle</span>
+<span class="text-brand-silver font-medium">Certificación rigurosa de todos nuestros procesos constructivos.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-brand-brown mt-1">check_circle</span>
+<span class="text-brand-silver font-medium">Uso de tecnología de punta para optimizar tiempos y recursos.</span>
+</li>
+</ul>
+</div>
+<div class="w-full lg:w-1/2 h-full min-h-[300px] bg-surface-card rounded-xl overflow-hidden relative border border-white/5">
+<div class="absolute inset-0 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDqO6UBZCoylkhYDT4POy8o1StENN25Tk_OlreYWUgDSY0I_E-x-f6esOuUpjEtMeNSmWZ4bgKPHMPlFyzooeuO1_TOlBmMIhxeJxD2xn4RPI3nw65ipH0X0RIAr9i9NLWZaqgyH5LosQ3S6aBjiA49Fff8gIZy37XMoLYQb_9-0iVJhpx1RMrjxMaXZAbLR1Dp4KEkgzhDyPPpHQyT4_CARSaOutXoqIbwaaV0xfjKCyBJbPTXK0xmAuWIoP_oOE1rehHdL7IKGFty");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<div class="bg-black/60 backdrop-blur-md border border-white/10 p-4 rounded-lg">
+<p class="text-brand-silver font-medium text-sm drop-shadow-md">"Construyendo el futuro con bases sólidas y visión moderna."</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+<div class="flex flex-col gap-6 p-8 rounded-2xl bg-surface-alt border border-white/10 shadow-lg hover:border-brand-brown/30 transition-all">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full bg-brand-brown text-white flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-2xl">security</span>
+</div>
+<h3 class="text-2xl font-bold text-white">Seguridad</h3>
+</div>
+<div class="space-y-4">
+<p class="text-brand-silver">
+                            Implementamos una rigurosa <strong>Gestión de Seguridad y Salud Ocupacional</strong>. Nuestro compromiso con la vida y la integridad de nuestros trabajadores se refleja en nuestros logros:
+                        </p>
+<ul class="space-y-3">
+<li class="flex items-start gap-3 p-3 bg-surface-card rounded-lg border border-white/5">
+<span class="material-symbols-outlined text-brand-brown">trending_down</span>
+<span class="text-brand-silver text-sm">Rebaja significativa de la Cotización Adicional gracias a bajas tasas de accidentabilidad.</span>
+</li>
+<li class="flex items-start gap-3 p-3 bg-surface-card rounded-lg border border-white/5">
+<span class="material-symbols-outlined text-brand-brown">emoji_events</span>
+<span class="text-brand-silver text-sm">Distinción en el "Cuadro de Honor en Prevención de Riesgos Laborales".</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="flex flex-col gap-6 p-8 rounded-2xl bg-surface-alt border border-white/10 shadow-lg hover:border-brand-brown/30 transition-all">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full bg-brand-brown text-white flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-2xl">star</span>
+</div>
+<h3 class="text-2xl font-bold text-white">Calidad</h3>
+</div>
+<div class="space-y-4">
+<p class="text-brand-silver">
+                            Nuestro <strong>Sistema de Gestión de Calidad</strong> está basado estrictamente en normas nacionales vigentes, garantizando la excelencia.
+                        </p>
+<div class="mt-2 p-4 bg-surface-card rounded-xl border border-white/5">
+<div class="flex gap-3 mb-2">
+<span class="material-symbols-outlined text-brand-brown">badge</span>
+<h4 class="text-white font-bold">Certificación Profesional</h4>
+</div>
+<p class="text-brand-silver text-sm">
+                                Contamos con la <strong>Certificación de Calidad Laboral</strong> de nuestro CEO, otorgada por <strong>INATEC-NICARAGUA</strong>, lo que avala nuestra competencia técnica y directiva.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-xl overflow-hidden bg-surface-alt border border-white/10 shadow-lg mb-12">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/3 min-h-[350px] md:min-h-auto relative bg-[#111]">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Portrait of a professional business man in a suit" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBDG3oij2I-sbURGeldqGiSLRc0xcgMd5AsvdX_fO3DDsOLNNTxA27qWF4D0E3CIhM4uK4TwzB-XMXPh60fYWjm2fB8EunfmUwhQS395xFxYin2v7Ol9CE3DOsK84iDVe3Ku3X3_Dc71hOgNfBqj4SQlhi9GpLvjHnG4s-Z9H-oDBDxZNHd3u6Br2OxLr4HzlpMF74DIhFuH9-PDGqiYH-LdokhzOpbHQq99m0IxuynorFSShdXl3oYN2DkgaaXsKuFhvSl0BwiGSUp");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent md:hidden"></div>
+<div class="absolute bottom-4 left-4 text-white md:hidden">
+<h3 class="text-xl font-bold">Ing. Carlos Hernández</h3>
+<p class="text-sm opacity-90 text-brand-silver">Gerente General / CEO</p>
+</div>
+</div>
+<div class="md:w-2/3 p-8 lg:p-10 flex flex-col justify-center gap-6">
+<div class="hidden md:block">
+<h3 class="text-3xl font-bold text-white">Ing. Carlos Hernández</h3>
+<p class="text-brand-silver font-bold text-lg mt-1">Gerente General / CEO</p>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-brand-silver mt-1">school</span>
+<div>
+<h4 class="text-white font-semibold">Formación Académica</h4>
+<p class="text-brand-silver text-sm">Ingeniería Civil con Especialidad en Gerencia de la Calidad</p>
+<p class="text-brand-brown text-xs font-bold uppercase tracking-wider mt-0.5">UCC - León</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-brand-silver mt-1">history_edu</span>
+<div>
+<h4 class="text-white font-semibold">Experiencia</h4>
+<p class="text-brand-silver text-sm leading-relaxed">
+                                        Con una sólida trayectoria en el sector de la construcción, ha liderado múltiples proyectos de envergadura, enfocándose siempre en la optimización de procesos y el aseguramiento de la calidad. Su liderazgo se basa en la integridad técnica y el compromiso humano.
+                                    </p>
+</div>
+</div>
+</div>
+<hr class="border-white/10 my-2"/>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex items-center gap-3 px-5 py-3 rounded-full bg-brand-brown border border-brand-brown text-white hover:bg-[#6b4538] transition-all group flex-1 justify-center sm:justify-start shadow-md" href="mailto:gerencia@hc-constructora.com">
+<span class="material-symbols-outlined text-white">mail</span>
+<span class="text-sm font-bold">gerencia@hc-constructora.com</span>
+</a>
+<a class="flex items-center gap-3 px-5 py-3 rounded-full bg-transparent border border-white/20 text-white hover:border-brand-brown hover:bg-white/5 transition-all group flex-1 justify-center sm:justify-start" href="tel:+55123456789">
+<span class="material-symbols-outlined text-brand-brown">call</span>
+<span class="text-sm font-bold">+505 8888 8888</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+          <!-- Para no alargar demasiado aquí: si quieres, te convierto también las secciones
+               "La Empresa Hoy", "Seguridad/Calidad", y el perfil del CEO con dark/light perfecto,
+               igual que arriba. -->
+          <div class="mt-10 border-t border-border-light dark:border-white/10 pt-8 pb-8 flex flex-col md:flex-row justify-between items-center text-slate-500 dark:text-brand-silver/60 gap-4">
+            <p class="text-sm">© 2024 H&amp;C Constructora. Todos los derechos reservados.</p>
+            <div class="flex gap-6">
+              <a class="text-sm hover:text-primary dark:hover:text-white transition-colors" href="#">Privacidad</a>
+              <a class="text-sm hover:text-primary dark:hover:text-white transition-colors" href="#">Términos</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
