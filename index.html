@@ -25,14 +25,14 @@
         theme: {
           extend: {
             colors: {
-              primary: "#5A3A2E",
-              secondary: "#C8C8C8",
-              "accent-brown": "#5A3A2E",
-              "text-silver": "#707070",
-              "background-light": "#FFFFFF",
-              "background-dark": "#131811",
-              "surface-light": "#F9F9F9",
-              "border-light": "#E5E5E5",
+              primary: "#6B4226",
+              secondary: "#D6C7B8",
+              "accent-brown": "#B8875A",
+              "text-silver": "#626262",
+              "background-light": "#FAFAF8",
+              "background-dark": "#171412",
+              "surface-light": "#F3F0EC",
+              "border-light": "#E2DDD7",
             },
             fontFamily: {
               display: ["Manrope", "Noto Sans", "sans-serif"],
@@ -64,9 +64,23 @@
       }
 
       html.dark header {
-        background-color: rgba(19, 24, 17, 0.95);
-        box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.8);
-        border-bottom: 1px solid rgba(200, 200, 200, 0.1);
+        background-color: rgba(23, 20, 18, 0.96);
+        box-shadow: 0 4px 18px -4px rgba(0, 0, 0, 0.75);
+        border-bottom: 1px solid rgba(214, 199, 184, 0.14);
+      }
+
+      /* Menú móvil */
+      #mobile-menu {
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+
+      #mobile-menu.hidden {
+        display: none;
+      }
+
+      #mobile-menu a,
+      #mobile-menu button {
+        -webkit-tap-highlight-color: transparent;
       }
     </style>
 
@@ -98,6 +112,62 @@
           localStorage.setItem("theme", next);
         } catch (e) {}
       }
+    </script>
+
+    <script>
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobile-menu");
+        const button = document.getElementById("mobile-menu-button");
+        const icon = document.getElementById("mobile-menu-icon");
+
+        if (!menu || !button || !icon) return;
+
+        const isClosed = menu.classList.contains("hidden");
+
+        menu.classList.toggle("hidden", !isClosed);
+        button.setAttribute("aria-expanded", String(isClosed));
+        button.setAttribute("aria-label", isClosed ? "Cerrar menú" : "Abrir menú");
+        icon.textContent = isClosed ? "close" : "menu";
+      }
+
+      function closeMobileMenu() {
+        const menu = document.getElementById("mobile-menu");
+        const button = document.getElementById("mobile-menu-button");
+        const icon = document.getElementById("mobile-menu-icon");
+
+        if (!menu || !button || !icon) return;
+
+        menu.classList.add("hidden");
+        button.setAttribute("aria-expanded", "false");
+        button.setAttribute("aria-label", "Abrir menú");
+        icon.textContent = "menu";
+      }
+
+      // Cerrar el menú si se pasa a escritorio.
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 768) {
+          closeMobileMenu();
+        }
+      });
+
+      // Cerrar al pulsar fuera del menú.
+      document.addEventListener("click", function (event) {
+        const menu = document.getElementById("mobile-menu");
+        const button = document.getElementById("mobile-menu-button");
+
+        if (!menu || !button || menu.classList.contains("hidden")) return;
+
+        if (!menu.contains(event.target) && !button.contains(event.target)) {
+          closeMobileMenu();
+        }
+      });
+
+      // Cerrar con la tecla Escape.
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeMobileMenu();
+        }
+      });
     </script>
   </head>
 
@@ -167,9 +237,72 @@
           </div>
 
           <!-- Menú móvil -->
-          <button class="md:hidden text-primary dark:text-secondary">
-            <span class="material-symbols-outlined">menu</span>
+          <button
+            id="mobile-menu-button"
+            type="button"
+            class="md:hidden flex h-10 w-10 items-center justify-center rounded-full text-primary hover:bg-primary/10 dark:text-secondary dark:hover:bg-secondary/10 transition-colors"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            onclick="toggleMobileMenu()"
+          >
+            <span id="mobile-menu-icon" class="material-symbols-outlined">menu</span>
           </button>
+        </div>
+
+        <!-- Menú desplegable móvil -->
+        <div
+          id="mobile-menu"
+          class="hidden md:hidden mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border border-border-light bg-white shadow-lg dark:border-secondary/15 dark:bg-[#211C18]"
+        >
+          <nav class="flex flex-col p-3">
+            <a
+              href="#"
+              onclick="closeMobileMenu()"
+              class="rounded-xl px-4 py-3 text-primary font-bold hover:bg-primary/10 dark:text-secondary dark:hover:bg-secondary/10 transition-colors"
+            >Inicio</a>
+
+            <a
+              href="servicios.html"
+              onclick="closeMobileMenu()"
+              class="rounded-xl px-4 py-3 text-text-silver font-medium hover:bg-primary/10 hover:text-primary dark:text-secondary/80 dark:hover:bg-secondary/10 dark:hover:text-secondary transition-colors"
+            >Servicios</a>
+
+            <a
+              href="proyectos.html"
+              onclick="closeMobileMenu()"
+              class="rounded-xl px-4 py-3 text-text-silver font-medium hover:bg-primary/10 hover:text-primary dark:text-secondary/80 dark:hover:bg-secondary/10 dark:hover:text-secondary transition-colors"
+            >Proyectos</a>
+
+            <a
+              href="quienes_somos.html"
+              onclick="closeMobileMenu()"
+              class="rounded-xl px-4 py-3 text-text-silver font-medium hover:bg-primary/10 hover:text-primary dark:text-secondary/80 dark:hover:bg-secondary/10 dark:hover:text-secondary transition-colors"
+            >Nosotros</a>
+
+            <a
+              href="contacto.html"
+              onclick="closeMobileMenu()"
+              class="rounded-xl px-4 py-3 text-text-silver font-medium hover:bg-primary/10 hover:text-primary dark:text-secondary/80 dark:hover:bg-secondary/10 dark:hover:text-secondary transition-colors"
+            >Contacto</a>
+
+            <div class="my-2 border-t border-border-light dark:border-secondary/10"></div>
+
+            <button
+              type="button"
+              onclick="toggleTheme(); closeMobileMenu();"
+              class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-text-silver font-medium hover:bg-primary/10 hover:text-primary dark:text-secondary/80 dark:hover:bg-secondary/10 dark:hover:text-secondary transition-colors"
+            >
+              <span class="material-symbols-outlined text-[20px]">dark_mode</span>
+              <span>Cambiar modo</span>
+            </button>
+
+            <a
+              href="contacto.html"
+              onclick="closeMobileMenu()"
+              class="mt-2 flex h-11 items-center justify-center rounded-full bg-primary px-6 text-sm font-bold text-white hover:bg-[#51321F] transition-colors"
+            >Cotizar</a>
+          </nav>
         </div>
       </header>
 
@@ -188,7 +321,7 @@
   <div
     class="absolute inset-0 bg-gradient-to-b
            from-white/75 to-white/85
-           dark:from-[rgba(19,24,17,0.85)] dark:to-[rgba(19,24,17,0.95)]"
+           dark:from-[rgba(23,20,18,0.82)] dark:to-[rgba(23,20,18,0.96)]"
   ></div>
 </div>
 

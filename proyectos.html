@@ -25,12 +25,12 @@
         theme: {
           extend: {
             colors: {
-              primary: "#5A3A2E", // Dark Brown from Logo
-              "background-light": "#FFFFFF", // Pure White
-              "background-dark": "#1a1a1a",
-              "brand-brown": "#5A3A2E",
-              "brand-silver": "#C8C8C8", // Silver Gray
-              "brand-silver-light": "#E5E5E5",
+              primary: "#6B4226",
+              "background-light": "#FAFAF8",
+              "background-dark": "#171412",
+              "brand-brown": "#6B4226",
+              "brand-silver": "#D6C7B8",
+              "brand-silver-light": "#E2DDD7",
             },
             fontFamily: {
               display: ["Manrope", "sans-serif"],
@@ -59,7 +59,19 @@
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #5a3a2e;
+        background: #6b4226;
+      }
+
+      html.dark ::-webkit-scrollbar-track {
+        background: #171412;
+      }
+
+      html.dark ::-webkit-scrollbar-thumb {
+        background: #6f6257;
+      }
+
+      html.dark ::-webkit-scrollbar-thumb:hover {
+        background: #b8875a;
       }
 
       nav {
@@ -73,9 +85,23 @@
       }
 
       html.dark nav {
-        background-color: rgba(17, 24, 39, 0.95);
-        border-bottom: 1px solid rgba(200, 200, 200, 0.35);
-        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.7);
+        background-color: rgba(23, 20, 18, 0.96);
+        border-bottom: 1px solid rgba(214, 199, 184, 0.14);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.72);
+      }
+
+      /* Menú móvil */
+      #mobile-menu {
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+
+      #mobile-menu.hidden {
+        display: none;
+      }
+
+      #mobile-menu a,
+      #mobile-menu button {
+        -webkit-tap-highlight-color: transparent;
       }
     </style>
 
@@ -107,6 +133,59 @@
         } catch (e) {}
       }
     </script>
+
+    <script>
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobile-menu");
+        const button = document.getElementById("mobile-menu-button");
+        const icon = document.getElementById("mobile-menu-icon");
+
+        if (!menu || !button || !icon) return;
+
+        const isClosed = menu.classList.contains("hidden");
+
+        menu.classList.toggle("hidden", !isClosed);
+        button.setAttribute("aria-expanded", String(isClosed));
+        button.setAttribute("aria-label", isClosed ? "Cerrar menú" : "Abrir menú");
+        icon.textContent = isClosed ? "close" : "menu";
+      }
+
+      function closeMobileMenu() {
+        const menu = document.getElementById("mobile-menu");
+        const button = document.getElementById("mobile-menu-button");
+        const icon = document.getElementById("mobile-menu-icon");
+
+        if (!menu || !button || !icon) return;
+
+        menu.classList.add("hidden");
+        button.setAttribute("aria-expanded", "false");
+        button.setAttribute("aria-label", "Abrir menú");
+        icon.textContent = "menu";
+      }
+
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 1024) {
+          closeMobileMenu();
+        }
+      });
+
+      document.addEventListener("click", function (event) {
+        const menu = document.getElementById("mobile-menu");
+        const button = document.getElementById("mobile-menu-button");
+
+        if (!menu || !button || menu.classList.contains("hidden")) return;
+
+        if (!menu.contains(event.target) && !button.contains(event.target)) {
+          closeMobileMenu();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeMobileMenu();
+        }
+      });
+    </script>
   </head>
 
   <body
@@ -114,7 +193,7 @@
   >
     <!-- NAV -->
     <nav
-      class="sticky top-0 z-50 w-full border-b border-brand-silver/30 bg-background-light/95 backdrop-blur-md dark:bg-[#111418]/95 dark:border-brand-silver/40"
+      class="sticky top-0 z-50 w-full border-b border-brand-silver/30 bg-background-light/95 backdrop-blur-md dark:bg-[#211C18]/95 dark:border-brand-silver/40"
     >
       <div
         class="px-4 md:px-10 py-3 flex items-center justify-between max-w-[1440px] mx-auto"
@@ -176,10 +255,73 @@
           >
             <span>Cotizar Obra</span>
           </button>
-          <button class="lg:hidden p-2 text-primary dark:text-brand-silver">
-            <span class="material-symbols-outlined">menu</span>
+          <button
+            id="mobile-menu-button"
+            type="button"
+            class="lg:hidden flex h-10 w-10 items-center justify-center rounded-full p-2 text-primary hover:bg-primary/10 dark:text-brand-silver dark:hover:bg-brand-silver/10 transition-colors"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            onclick="toggleMobileMenu()"
+          >
+            <span id="mobile-menu-icon" class="material-symbols-outlined">menu</span>
           </button>
         </div>
+      </div>
+
+      <!-- Menú desplegable móvil -->
+      <div
+        id="mobile-menu"
+        class="hidden lg:hidden mx-4 mb-3 overflow-hidden rounded-2xl border border-brand-silver/50 bg-white shadow-lg dark:border-brand-silver/15 dark:bg-[#211C18]"
+      >
+        <nav class="flex flex-col p-3">
+          <a
+            href="index.html"
+            onclick="closeMobileMenu()"
+            class="rounded-xl px-4 py-3 text-slate-600 font-medium hover:bg-primary/10 hover:text-primary dark:text-brand-silver/80 dark:hover:bg-brand-silver/10 dark:hover:text-white transition-colors"
+          >Inicio</a>
+
+          <a
+            href="proyectos.html"
+            onclick="closeMobileMenu()"
+            class="rounded-xl px-4 py-3 text-primary font-bold hover:bg-primary/10 dark:text-brand-silver dark:hover:bg-brand-silver/10 transition-colors"
+          >Proyectos</a>
+
+          <a
+            href="servicios.html"
+            onclick="closeMobileMenu()"
+            class="rounded-xl px-4 py-3 text-slate-600 font-medium hover:bg-primary/10 hover:text-primary dark:text-brand-silver/80 dark:hover:bg-brand-silver/10 dark:hover:text-white transition-colors"
+          >Servicios</a>
+
+          <a
+            href="quienes_somos.html"
+            onclick="closeMobileMenu()"
+            class="rounded-xl px-4 py-3 text-slate-600 font-medium hover:bg-primary/10 hover:text-primary dark:text-brand-silver/80 dark:hover:bg-brand-silver/10 dark:hover:text-white transition-colors"
+          >Nosotros</a>
+
+          <a
+            href="contacto.html"
+            onclick="closeMobileMenu()"
+            class="rounded-xl px-4 py-3 text-slate-600 font-medium hover:bg-primary/10 hover:text-primary dark:text-brand-silver/80 dark:hover:bg-brand-silver/10 dark:hover:text-white transition-colors"
+          >Contacto</a>
+
+          <div class="my-2 border-t border-brand-silver/30 dark:border-brand-silver/10"></div>
+
+          <button
+            type="button"
+            onclick="toggleTheme(); closeMobileMenu();"
+            class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-slate-600 font-medium hover:bg-primary/10 hover:text-primary dark:text-brand-silver/80 dark:hover:bg-brand-silver/10 dark:hover:text-white transition-colors"
+          >
+            <span class="material-symbols-outlined text-[20px]">dark_mode</span>
+            <span>Cambiar modo</span>
+          </button>
+
+          <a
+            href="contacto.html"
+            onclick="closeMobileMenu()"
+            class="mt-2 flex h-11 items-center justify-center rounded-full bg-primary px-6 text-sm font-bold text-white hover:bg-[#51321F] transition-colors"
+          >Cotizar Obra</a>
+        </nav>
       </div>
     </nav>
 
@@ -228,7 +370,7 @@
               <p class="text-white text-sm font-bold">Todos</p>
             </button>
             <button
-              class="group flex h-10 items-center justify-center gap-x-2 rounded-full bg-slate-100 hover:bg-white px-6 border border-slate-200 hover:border-primary/50 transition-all dark:bg-[#111111] dark:border-brand-silver/40 dark:hover:border-primary"
+              class="group flex h-10 items-center justify-center gap-x-2 rounded-full bg-slate-100 hover:bg-white px-6 border border-slate-200 hover:border-primary/50 transition-all dark:bg-[#211C18] dark:border-brand-silver/40 dark:hover:border-primary"
             >
               <p
                 class="text-slate-600 group-hover:text-primary text-sm font-medium dark:text-brand-silver dark:group-hover:text-white"
@@ -237,7 +379,7 @@
               </p>
             </button>
             <button
-              class="group flex h-10 items-center justify-center gap-x-2 rounded-full bg-slate-100 hover:bg-white px-6 border border-slate-200 hover:border-primary/50 transition-all dark:bg-[#111111] dark:border-brand-silver/40 dark:hover:border-primary"
+              class="group flex h-10 items-center justify-center gap-x-2 rounded-full bg-slate-100 hover:bg-white px-6 border border-slate-200 hover:border-primary/50 transition-all dark:bg-[#211C18] dark:border-brand-silver/40 dark:hover:border-primary"
             >
               <p
                 class="text-slate-600 group-hover:text-primary text-sm font-medium dark:text-brand-silver dark:group-hover:text-white"
@@ -246,7 +388,7 @@
               </p>
             </button>
             <button
-              class="group flex h-10 items-center justify-center gap-x-2 rounded-full bg-slate-100 hover:bg-white px-6 border border-slate-200 hover:border-primary/50 transition-all dark:bg-[#111111] dark:border-brand-silver/40 dark:hover:border-primary"
+              class="group flex h-10 items-center justify-center gap-x-2 rounded-full bg-slate-100 hover:bg-white px-6 border border-slate-200 hover:border-primary/50 transition-all dark:bg-[#211C18] dark:border-brand-silver/40 dark:hover:border-primary"
             >
               <p
                 class="text-slate-600 group-hover:text-primary text-sm font-medium dark:text-brand-silver dark:group-hover:text-white"
@@ -255,7 +397,7 @@
               </p>
             </button>
             <button
-              class="group flex h-10 items-center justify-center gap-x-2 rounded-full bg-slate-100 hover:bg-white px-6 border border-slate-200 hover:border-primary/50 transition-all dark:bg-[#111111] dark:border-brand-silver/40 dark:hover:border-primary"
+              class="group flex h-10 items-center justify-center gap-x-2 rounded-full bg-slate-100 hover:bg-white px-6 border border-slate-200 hover:border-primary/50 transition-all dark:bg-[#211C18] dark:border-brand-silver/40 dark:hover:border-primary"
             >
               <p
                 class="text-slate-600 group-hover:text-primary text-sm font-medium dark:text-brand-silver dark:group-hover:text-white"
@@ -264,7 +406,7 @@
               </p>
             </button>
             <button
-              class="group flex h-10 items-center justify-center gap-x-2 rounded-full bg-slate-100 hover:bg-white px-6 border border-slate-200 hover:border-primary/50 transition-all dark:bg-[#111111] dark:border-brand-silver/40 dark:hover:border-primary"
+              class="group flex h-10 items-center justify-center gap-x-2 rounded-full bg-slate-100 hover:bg-white px-6 border border-slate-200 hover:border-primary/50 transition-all dark:bg-[#211C18] dark:border-brand-silver/40 dark:hover:border-primary"
             >
               <p
                 class="text-slate-600 group-hover:text-primary text-sm font-medium dark:text-brand-silver dark:group-hover:text-white"
@@ -279,7 +421,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- CARD 1 -->
           <div
-            class="group flex flex-col gap-4 p-4 rounded-2xl bg-white border border-brand-silver hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-brand-brown/10 dark:bg-[#111111] dark:border-brand-silver/50"
+            class="group flex flex-col gap-4 p-4 rounded-2xl bg-white border border-brand-silver hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-brand-brown/10 dark:bg-[#211C18] dark:border-brand-silver/50"
           >
             <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl">
               <div
@@ -292,7 +434,7 @@
               ></div>
               <div class="absolute top-3 right-3 z-20">
                 <span
-                  class="px-3 py-1 bg-white/90 text-primary text-xs font-bold rounded-full backdrop-blur-sm shadow-sm border border-brand-silver/50 dark:bg-[#111111]/90 dark:text-brand-silver"
+                  class="px-3 py-1 bg-white/90 text-primary text-xs font-bold rounded-full backdrop-blur-sm shadow-sm border border-brand-silver/50 dark:bg-[#211C18]/90 dark:text-brand-silver"
                   >2023</span
                 >
               </div>
@@ -324,7 +466,7 @@
 
           <!-- CARD 2 -->
           <div
-            class="group flex flex-col gap-4 p-4 rounded-2xl bg-white border border-brand-silver hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-brand-brown/10 dark:bg-[#111111] dark:border-brand-silver/50"
+            class="group flex flex-col gap-4 p-4 rounded-2xl bg-white border border-brand-silver hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-brand-brown/10 dark:bg-[#211C18] dark:border-brand-silver/50"
           >
             <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl">
               <div
@@ -337,7 +479,7 @@
               ></div>
               <div class="absolute top-3 right-3 z-20">
                 <span
-                  class="px-3 py-1 bg-white/90 text-primary text-xs font-bold rounded-full backdrop-blur-sm shadow-sm border border-brand-silver/50 dark:bg-[#111111]/90 dark:text-brand-silver"
+                  class="px-3 py-1 bg-white/90 text-primary text-xs font-bold rounded-full backdrop-blur-sm shadow-sm border border-brand-silver/50 dark:bg-[#211C18]/90 dark:text-brand-silver"
                   >2022</span
                 >
               </div>
@@ -369,7 +511,7 @@
 
           <!-- CARD 3 -->
           <div
-            class="group flex flex-col gap-4 p-4 rounded-2xl bg-white border border-brand-silver hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-brand-brown/10 dark:bg-[#111111] dark:border-brand-silver/50"
+            class="group flex flex-col gap-4 p-4 rounded-2xl bg-white border border-brand-silver hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-brand-brown/10 dark:bg-[#211C18] dark:border-brand-silver/50"
           >
             <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl">
               <div
@@ -414,7 +556,7 @@
 
           <!-- CARD 4 -->
           <div
-            class="group flex flex-col gap-4 p-4 rounded-2xl bg-white border border-brand-silver hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-brand-brown/10 dark:bg-[#111111] dark:border-brand-silver/50"
+            class="group flex flex-col gap-4 p-4 rounded-2xl bg-white border border-brand-silver hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-brand-brown/10 dark:bg-[#211C18] dark:border-brand-silver/50"
           >
             <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl">
               <div
@@ -427,7 +569,7 @@
               ></div>
               <div class="absolute top-3 right-3 z-20">
                 <span
-                  class="px-3 py-1 bg-white/90 text-primary text-xs font-bold rounded-full backdrop-blur-sm shadow-sm border border-brand-silver/50 dark:bg-[#111111]/90 dark:text-brand-silver"
+                  class="px-3 py-1 bg-white/90 text-primary text-xs font-bold rounded-full backdrop-blur-sm shadow-sm border border-brand-silver/50 dark:bg-[#211C18]/90 dark:text-brand-silver"
                   >2023</span
                 >
               </div>
@@ -459,7 +601,7 @@
 
           <!-- CARD 5 -->
           <div
-            class="group flex flex-col gap-4 p-4 rounded-2xl bg-white border border-brand-silver hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-brand-brown/10 dark:bg-[#111111] dark:border-brand-silver/50"
+            class="group flex flex-col gap-4 p-4 rounded-2xl bg-white border border-brand-silver hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-brand-brown/10 dark:bg-[#211C18] dark:border-brand-silver/50"
           >
             <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl">
               <div
@@ -472,7 +614,7 @@
               ></div>
               <div class="absolute top-3 right-3 z-20">
                 <span
-                  class="px-3 py-1 bg-white/90 text-primary text-xs font-bold rounded-full backdrop-blur-sm shadow-sm border border-brand-silver/50 dark:bg-[#111111]/90 dark:text-brand-silver"
+                  class="px-3 py-1 bg-white/90 text-primary text-xs font-bold rounded-full backdrop-blur-sm shadow-sm border border-brand-silver/50 dark:bg-[#211C18]/90 dark:text-brand-silver"
                   >2021</span
                 >
               </div>
@@ -503,7 +645,7 @@
 
           <!-- CARD 6 -->
           <div
-            class="group flex flex-col gap-4 p-4 rounded-2xl bg-white border border-brand-silver hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-brand-brown/10 dark:bg-[#111111] dark:border-brand-silver/50"
+            class="group flex flex-col gap-4 p-4 rounded-2xl bg-white border border-brand-silver hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-brand-brown/10 dark:bg-[#211C18] dark:border-brand-silver/50"
           >
             <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl">
               <div
@@ -516,7 +658,7 @@
               ></div>
               <div class="absolute top-3 right-3 z-20">
                 <span
-                  class="px-3 py-1 bg-white/90 text-primary text-xs font-bold rounded-full backdrop-blur-sm shadow-sm border border-brand-silver/50 dark:bg-[#111111]/90 dark:text-brand-silver"
+                  class="px-3 py-1 bg-white/90 text-primary text-xs font-bold rounded-full backdrop-blur-sm shadow-sm border border-brand-silver/50 dark:bg-[#211C18]/90 dark:text-brand-silver"
                   >2022</span
                 >
               </div>
@@ -559,9 +701,9 @@
     </main>
 
     <!-- CTA final -->
-    <section class="w-full py-16 px-4 bg-slate-50 dark:bg-[#111111]">
+    <section class="w-full py-16 px-4 bg-slate-50 dark:bg-[#211C18]">
       <div
-        class="@container max-w-[960px] mx-auto bg-white border border-brand-silver rounded-3xl overflow-hidden relative shadow-lg shadow-brand-brown/5 dark:bg-[#111418] dark:border-brand-silver/50"
+        class="@container max-w-[960px] mx-auto bg-white border border-brand-silver rounded-3xl overflow-hidden relative shadow-lg shadow-brand-brown/5 dark:bg-[#211C18] dark:border-brand-silver/50"
       >
         <div
           class="absolute -top-24 -right-24 w-64 h-64 bg-brand-brown/10 rounded-full blur-3xl"
