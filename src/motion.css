@@ -1,0 +1,7 @@
+.hero-copy, .about-hero-grid > div, .portfolio-hero > div {animation: enter .65s ease-out both}
+.card, .btn, .filters button {transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease}
+.card:hover {transform: translateY(-4px)}
+.btn:hover {transform: translateY(-2px)}
+.catalog .card:hover {box-shadow: 0 12px 32px #1d251b20}
+@keyframes enter {from {opacity:0; transform:translateY(16px)} to {opacity:1; transform:translateY(0)}}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important}}
