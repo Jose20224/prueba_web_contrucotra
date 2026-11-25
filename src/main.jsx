@@ -30,9 +30,51 @@ function Header({ page }) {
 }
 
 function Footer() {
-  return <footer><div className="wrap footer-row"><Brand /><span>Chinandega, Nicaragua</span>
-    <a href="mailto:info@hcconstructora.com">info@hcconstructora.com</a>
-  </div></footer>
+  const services = [
+    ['Construcción en general', 'Construcción en general'],
+    ['Remodelaciones', 'Remodelaciones'],
+    ['Diseño de planos', 'Diseño de planos'],
+    ['Supervisión de proyectos', 'Supervisión de proyectos'],
+    ['Propuestas de construcción', 'Propuestas de construcción']
+  ]
+
+  return <footer className="site-footer">
+    <div className="wrap">
+      <div className="footer-grid">
+        <div className="footer-about">
+          <Brand />
+          <p className="footer-tagline">Edificando el futuro</p>
+          <p>Diseño, construcción y supervisión de obras para viviendas, comercios y espacios que sirven a la comunidad.</p>
+        </div>
+        <div className="footer-column">
+          <h2>Explora</h2>
+          <ul>{navigation.map(([path, label]) =>
+            <li key={path}><a href={path + '.html'}>{label}</a></li>
+          )}</ul>
+        </div>
+        <div className="footer-column">
+          <h2>Servicios</h2>
+          <ul>{services.map(([label, service]) =>
+            <li key={service}><a href={'contacto.html?servicio=' + encodeURIComponent(service) + '#solicitud'}>{label}</a></li>
+          )}</ul>
+          <a className="footer-services-link" href="servicios.html">Ver todos los servicios</a>
+        </div>
+        <div className="footer-column footer-contact">
+          <h2>Contacto y horario</h2>
+          <ul>
+            <li><span>Teléfono</span><a href="tel:+50588888888">+505 8888 8888</a></li>
+            <li><span>Correo</span><a href="mailto:info@hcconstructora.com">info@hcconstructora.com</a></li>
+            <li><span>Ubicación</span>Chinandega, Nicaragua</li>
+            <li><span>Horario</span>Lunes a viernes, 8:00 a 17:00<br />Sábado, 8:00 a 12:00</li>
+          </ul>
+        </div>
+      </div>
+      <div className="footer-bottom">
+        <p>© {new Date().getFullYear()} H&amp;C Constructora. Todos los derechos reservados.</p>
+        <a href="contacto.html#solicitud">Hablemos de tu proyecto</a>
+      </div>
+    </div>
+  </footer>
 }
 
 function App() {

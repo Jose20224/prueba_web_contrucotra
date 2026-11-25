@@ -31,11 +31,21 @@ theme.addEventListener("click", () => {
 });
 
 const slides = Array.from(document.querySelectorAll(".slide"));
-let activeSlide = 0;
-document.querySelectorAll("[data-step]").forEach(button => {
-  button.addEventListener("click", () => {
-    activeSlide = (activeSlide + Number(button.dataset.step) + slides.length) % slides.length;
-    slides.forEach((slide, index) => { slide.hidden = index !== activeSlide; });
+const carousel = document.querySelector(".showcase");
+
+if (carousel && slides.length > 1) {
+  const description = document.querySelector("#slide-description");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let activeSlide = 0;
+  let timer;
+
+  function showSlide(index) {
+    activeSlide = (index + slides.length) % slides.length;
+    slides.forEach((slide, position) => {
+      const active = position === activeSlide;
+      slide.classList.toggle("is-active", active);
+      slide.setAttribute("aria-hidden", String(!active));
+    });
     const { cat, title, key } = slides[activeSlide].dataset;
     document.querySelector("#slide-cat").textContent = cat;
     const link = document.querySelector("#slide-title");
@@ -43,8 +53,30 @@ document.querySelectorAll("[data-step]").forEach(button => {
     link.href = "proyectos.html#" + key;
     document.querySelector("#slide-count").textContent =
       String(activeSlide + 1).padStart(2, "0") + " / " + String(slides.length).padStart(2, "0");
+  }
+
+  function schedule() {
+    clearInterval(timer);
+    if (!document.hidden && !reducedMotion.matches &&
+        !carousel.matches(":hover") && !carousel.contains(document.activeElement)) {
+      timer = setInterval(() => showSlide(activeSlide + 1), 6000);
+    }
+  }
+
+  document.querySelectorAll("[data-step]").forEach(button => {
+    button.addEventListener("click", () => {
+      description.setAttribute("aria-live", "polite");
+      showSlide(activeSlide + Number(button.dataset.step));
+    });
   });
-});
+  carousel.addEventListener("focusin", () => clearInterval(timer));
+  carousel.addEventListener("focusout", () => setTimeout(schedule, 0));
+  carousel.addEventListener("mouseenter", () => clearInterval(timer));
+  carousel.addEventListener("mouseleave", schedule);
+  document.addEventListener("visibilitychange", schedule);
+  reducedMotion.addEventListener("change", schedule);
+  schedule();
+}
 
 const filters = document.querySelectorAll("[data-filter]");
 filters.forEach(button => {
